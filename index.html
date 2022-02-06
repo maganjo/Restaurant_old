@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Restaurant</title>
+    
+    
+
+    
+    <script src="Scripts/angular.min.js"></script>
+
+	<script src="Scripts/jquery-2.2.3.min.js"></script>
+	<script src="menu.js"></script>
+	<style>
+		ul {
+    list-style-type: none;
+}
+	</style>
+</head>
+<body ng-controller="menucontroller as vm">
+<h2 style="margin-left: 1.8em;">Restaurant Menu</h2>
+<ul ng-repeat-start="menu in menuItems">
+<li><input type="checkbox" ng-model="menu.isChecked" /> {{menu.name}}
+	<ul ng-if="menu.isChecked" ng-repeat="choice in menu.choices">
+		<li> <input type="checkbox" ng-model="choice.isChecked" /> {{choice.name}}</li>
+	</ul>
+	
+	<ul ng-if="menu.related.length>0 && menu.isChecked && anyOfChoiceIsChecked(menu)">
+		<br/>
+		<li>You might also want :</li>
+		<br/>
+	</ul>
+	
+	<ul ng-if="menu.isChecked" ng-repeat="related in menu.related">
+		
+		<li> <input type="checkbox" ng-model="related.isChecked" /> {{related.name}}
+			<ul ng-if="related.isChecked" ng-repeat="relchoice in related.choices">
+				<li> <input type="checkbox" ng-model="relchoice.isChecked" /> {{relchoice.name}}</li>
+			</ul>
+		</li>
+	</ul>
+</li>
+
+</ul>
+<ul ng-repeat-end="" ></ul>
+</body>
+
+</html>
+	
